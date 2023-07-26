@@ -11,11 +11,10 @@
 <body>
     <div class="container">
         <p>Enter text or any URL</p>
-        <input type="text" placeholder="Add text or url" id="qr-text">
+        <input type="text" placeholder="Add text or url" id="qr-text" oninput="generateQR()">
         <div id="img-box">
             <img id="qr-img" src="" alt="">
         </div>
-        <button onclick=generateQR()> Generate QR-Code</button>
     </div>
 
 
