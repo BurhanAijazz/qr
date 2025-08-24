@@ -1,247 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR-CODE Generator</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 500px;
-            padding: 30px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        .title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .title i {
-            font-size: 24px;
-            color: white;
-        }
-
-        .container p {
-            font-weight: 600;
-            font-size: 20px;
-            margin-bottom: 15px;
-            color: white;
-            text-align: center;
-        }
-
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .input-group input {
-            width: 100%;
-            font-size: 16px;
-            padding: 15px 45px 15px 15px;
-            border: none;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .input-group input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
-        }
-
-        #img-box {
-            width: 200px;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            opacity: 0;
-        }
-
-        #img-box.show-img {
-            max-height: 300px;
-            margin: 20px auto;
-            opacity: 1;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        #img-box img {
-            width: 100%;
-            padding: 10px;
-        }
-
-        .download-btn {
-            display: none;
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, #00c6fb 0%, #005bea 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .download-btn.show {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .download-btn i {
-            font-size: 18px;
-        }
-
-        .download-btn.downloading {
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 20px;
-            }
-
-            .container p {
-                font-size: 18px;
-            }
-
-            .input-group input {
-                font-size: 14px;
-                padding: 12px 40px 12px 12px;
-            }
-
-            #img-box {
-                width: 150px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="title">
-            <i class="fas fa-qrcode"></i>
-            <p>QR Code Generator</p>
-        </div>
-        <div class="input-group">
-            <input type="text" placeholder="Enter text or URL" id="qr-text" oninput="generateQR()">
-        </div>
-        <div id="img-box">
-            <img id="qr-img" src="" alt="QR Code">
-        </div>
-        <button id="download-btn" class="download-btn">
-            <i class="fas fa-download"></i>
-            Download QR Code
-        </button>
+  <button id="theme-toggle" class="theme-toggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <div class="container">
+    <div class="title">
+      <i class="fas fa-qrcode"></i>
+      <p>QR Code Generator</p>
     </div>
 
-    <script>
-        const imgBox = document.getElementById("img-box");
-        const qrImg = document.getElementById("qr-img");
-        const qrText = document.getElementById("qr-text");
-        const downloadBtn = document.getElementById("download-btn");
+    <div class="input-group">
+      <input type="text" id="qr-text" placeholder="Enter text or URL" oninput="generateQR()">
+    </div>
 
-        function generateQR() {
-            if (qrText.value.length > 0) {
-                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrText.value)}`;
-                imgBox.classList.add("show-img");
-                downloadBtn.classList.add("show");
-            } else {
-                imgBox.classList.remove("show-img");
-                downloadBtn.classList.remove("show");
-            }
-        }
+    <div id="img-box">
+      <img id="qr-img" src="" alt="QR Code">
+    </div>
 
-        async function downloadQR() {
-            if (!qrImg.src) return;
-
-            try {
-                downloadBtn.classList.add("downloading");
-                downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-
-                const response = await fetch(qrImg.src);
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "qr-code.png";
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-
-                downloadBtn.classList.remove("downloading");
-                downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download QR Code';
-            } catch (error) {
-                console.error("Download failed:", error);
-                downloadBtn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Download Failed';
-                setTimeout(() => {
-                    downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download QR Code';
-                    downloadBtn.classList.remove("downloading");
-                }, 2000);
-            }
-        }
-
-        downloadBtn.addEventListener("click", downloadQR);
-
-        // Add loading state for QR image
-        qrImg.addEventListener("load", () => {
-            imgBox.style.opacity = "1";
-        });
-
-        qrImg.addEventListener("error", () => {
-            imgBox.classList.remove("show-img");
-            downloadBtn.classList.remove("show");
-            alert("Failed to generate QR code. Please try again.");
-        });
-    </script>
+    <div class="buttons">
+      <button id="download-btn" class="download-btn">
+        <i class="fas fa-download"></i> Download
+      </button>
+      <button id="copy-btn" class="copy-btn">
+        <i class="fas fa-copy"></i> Copy Link
+      </button>
+    </div>
+    <footer class="site-footer">
+        Made by <a href="https://burhanaijazz.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Burhan Aijaz</a>
+      </footer>      
+  </div>
+  
+<script src="script.js"></script>
 </body>
 </html>

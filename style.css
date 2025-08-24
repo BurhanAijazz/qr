@@ -1,98 +1,162 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-
 body {
-    background: #bbd8fb;
-    background-image: url(website\ background.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: background 0.5s ease;
+    padding: 20px;
+}
+
+body.dark {
+    background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    transition: 0.3s;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.35);
 }
 
 .container {
-    width: 500px;
-    padding: 25px 35px;
-    border-radius: 50px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgb(2, 0, 36);
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 1%, rgba(81, 9, 121, 0.7027603277639181) 27%, rgba(0, 212, 255, 1) 100%);
-    border-radius: 11px;
-
-}
-
-.container p {
-    font-weight: 1000;
-    font-size: 20px;
-    margin-bottom: 8px;
-    color: white;
-    background: rgba(26, 9, 88, 0.1);
+    width: 95%;
+    max-width: 500px;
+    padding: 25px 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, .2);
     text-align: center;
-}
-
-.container input {
-    width: 100%;
-    font-weight: 700;
-    font-size: 20px;
-    height: 50px;
-    border: 1px solid #494eea;
-    outline: 0;
-    padding: 10px;
-    margin: 10px 0 20px;
-    border-radius: 50px;
-}
-
-.container button {
-    width: 100%;
-    font-weight: 700;
-    font-size: 20px;
-    height: 50px;
-    background: #494eea;
     color: white;
-    border: 0;
-    outline: 0;
-    border-radius: 50px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 2);
-    cursor: pointer;
-    margin: 20px 0;
-    font-weight: 500;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.dark .container {
+    background: rgba(0, 0, 0, 0.3);
+    color: #eee;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.3);
 }
 
 #img-box {
-    width: 200px;
-    border-radius: 5px;
+    margin: 20px auto;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+
+#img-box.show-img {
+    max-height: 400px;
+    opacity: 1;
 }
 
 #img-box img {
     width: 100%;
+    max-width: 300px;
+    border-radius: 12px;
+    background: white;
     padding: 10px;
 }
 
-#img-box.show-img {
-    max-height: 300px;
-    margin: 10px auto;
-    border: 1px solid #d1d1d1;
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-@media (max-width:799px) {
-    .container {
-        width: 300px;
-    }
-
+button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-@media (max-width:477px) {
-    .container {
-        width: 200px;
-    }
+#download-btn {
+    background: linear-gradient(45deg, #00c6fb, #005bea);
+    color: white;
+}
+
+#download-btn:hover {
+    transform: translateY(-2px);
+}
+
+#copy-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+#copy-btn:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.site-footer {
+    margin-top: 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    /* Slightly transparent white */
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    user-select: none;
+}
+
+.site-footer a {
+    color: #80b3ff;
+    /* Light blue  - fits your blue theme */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.site-footer a:hover,
+.site-footer a:focus {
+    color: #cce4ff;
+    /* Lighter blue on hover */
+    text-decoration: underline;
 }
